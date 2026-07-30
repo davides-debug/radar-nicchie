@@ -5,7 +5,8 @@ Radar-Nicchie è un sistema automatizzato per monitorare la domanda e individuar
 ## 🚀 Setup
 
 ### Requisiti
-- Python 3.9+
+- Python 3.11+ (richiesto da `pandas`, dipendenza indiretta di `pytrends`;
+  versioni precedenti falliscono l'installazione delle dipendenze)
 - Chiavi API per Reddit (PRAW) e Udemy (Affiliate API) — **opzionali**, vedi
   limitazioni note qui sotto
 
