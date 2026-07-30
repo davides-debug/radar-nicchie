@@ -5,6 +5,10 @@ on:
     - cron: '0 8 * * 1' # Lunedì mattina alle 08:00 UTC
   workflow_dispatch: # Permette l'esecuzione manuale per test
 
+permissions:
+  contents: write
+  issues: write
+
 jobs:
   scan:
     runs-on: ubuntu-latest
