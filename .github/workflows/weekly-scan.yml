@@ -1,0 +1,61 @@
+name: Weekly Niche Scan
+
+on:
+  schedule:
+    - cron: '0 8 * * 1' # Lunedì mattina alle 08:00 UTC
+  workflow_dispatch: # Permette l'esecuzione manuale per test
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run pipeline
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          UDEMY_CLIENT_ID: ${{ secrets.UDEMY_CLIENT_ID }}
+          UDEMY_CLIENT_SECRET: ${{ secrets.UDEMY_CLIENT_SECRET }}
+        run: python main.py
+
+      - name: Generate report
+        run: |
+          python -c "from report.generate_report import generate_markdown_report; generate_markdown_report(only_above_threshold=False)"
+          # Genera anche un report filtrato per l'Issue
+          python -c "from report.generate_report import generate_markdown_report; r = generate_markdown_report(only_above_threshold=True); f = open('report/issue_report.md', 'w'); f.write(r or 'Nessuna nicchia sopra la soglia questa settimana.'); f.close()"
+
+      - name: Generate dashboard
+        run: python report/generate_dashboard.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add storage/niches.db report/latest_report.md report/dashboard.html
+          git commit -m "Update niche data and report [automated]" || echo "No changes to commit"
+          git push
+
+      - name: Create Issue with report
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('report/issue_report.md', 'utf8');
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚀 Radar-Nicchie: Report Settimanale',
+              body: report
+            });

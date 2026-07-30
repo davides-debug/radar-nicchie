@@ -1,0 +1,6 @@
+pytrends==4.9.2
+praw==8.0.2
+requests==2.34.2
+pyyaml==6.0.3
+pytest==9.1.1
+python-dotenv==1.0.1

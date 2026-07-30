@@ -1,0 +1,49 @@
+# Configurazione Radar-Nicchie
+
+# Keyword seed per Google Trends e Reddit
+keywords:
+  - "personal finance"
+  - "sustainable gardening"
+  - "remote work tools"
+  - "mental health for developers"
+  - "low-code automation"
+
+# Subreddit da monitorare
+subreddits:
+  - "solopreneur"
+  - "sideproject"
+  - "entrepreneur"
+  - "digitalnomad"
+  - "indiehackers"
+
+# Topic Udemy (per Udemy Affiliate API)
+udemy_topics:
+  - "Finance"
+  - "Gardening"
+  - "Productivity"
+  - "Health"
+  - "Software Engineering"
+
+# Pesi dello scoring (totale dovrebbe essere 100 per facilità, ma il codice gestirà la normalizzazione)
+# I pesi sono commentati in scoring/opportunity_score.py
+#
+# NOTA: dal 2025/2026 Reddit non rilascia più chiavi API gratuite per nuovi
+# sviluppatori senza approvazione (vedi README). Il peso di reddit_engagement
+# è stato ridotto rispetto al default originale (30 -> 10) per non penalizzare
+# chi non riesce ad attivare questa fonte; manual_market è stato aumentato
+# perché è l'unica fonte interamente sotto il tuo controllo. Se disponi delle
+# credenziali Reddit, sentiti libero di alzarne di nuovo il peso.
+scoring_weights:
+  google_trends: 30
+  reddit_engagement: 10
+  udemy_market: 25
+  manual_market: 35 # Gumroad + KDP
+
+# Soglia per l'alert (0-100)
+alert_threshold: 70
+
+# NOTA: Google Trends non offre una API ufficiale gratuita. pytrends simula
+# il traffico del sito e Google può rispondere con errori 429 (rate-limit)
+# in modo imprevedibile. La pipeline gestisce questo caso con retry
+# automatici (vedi sources/google_trends.py), ma se il problema persiste
+# riduci il numero di keyword monitorate o esegui la pipeline meno spesso.

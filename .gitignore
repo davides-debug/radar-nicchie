@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*$py.class
+pipeline.log
+.env
+.pytest_cache/
+.claude/
