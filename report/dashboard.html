@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar-Nicchie Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .chart-container {
+            position: relative;
+            height: 500px;
+            width: 100%;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Radar-Nicchie: Storico Opportunità</h1>
+            <p>Visualizzazione dell'andamento dell'Opportunity Score nel tempo.</p>
+        </header>
+
+        <div class="chart-container">
+            <canvas id="nicheChart"></canvas>
+        </div>
+
+        <footer>
+            Generato il: 2026-08-03 11:41:38 | Radar-Nicchie System
+        </footer>
+    </div>
+
+    <script>
+        const rawData = [{"niche": "low-code automation", "date": "2026-08-03 11:41:37", "avg_score": 25.0}, {"niche": "mental health for developers", "date": "2026-08-03 11:41:37", "avg_score": 25.0}, {"niche": "personal finance", "date": "2026-08-03 11:41:37", "avg_score": 25.0}, {"niche": "remote work tools", "date": "2026-08-03 11:41:37", "avg_score": 25.0}, {"niche": "sustainable gardening", "date": "2026-08-03 11:41:37", "avg_score": 25.0}];
+
+        // Elaborazione dati per Chart.js
+        const labels = [...new Set(rawData.map(d => d.date))].sort();
+        const niches = [...new Set(rawData.map(d => d.niche))];
+
+        const colors = [
+            '#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6',
+            '#1abc9c', '#e67e22', '#34495e', '#7f8c8d', '#d35400'
+        ];
+
+        const datasets = niches.map((niche, index) => {
+            return {
+                label: niche,
+                data: labels.map(date => {
+                    const entry = rawData.find(d => d.niche === niche && d.date === date);
+                    return entry ? entry.avg_score : null;
+                }),
+                borderColor: colors[index % colors.length],
+                backgroundColor: colors[index % colors.length] + '22',
+                tension: 0.3,
+                fill: false
+            };
+        });
+
+        const ctx = document.getElementById('nicheChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Opportunity Score'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Data di Rilevazione'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
