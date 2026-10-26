@@ -1,14 +1,14 @@
 # 🚀 Radar-Nicchie: Report Opportunità
-Data generazione: 2026-10-19 15:30:53
+Data generazione: 2026-10-26 15:06:46
 
 ## 🏆 Top 10 Nicchie per Opportunity Score
 | Posizione | Nicchia | Score | Var. WoW | Ultimo Aggiornamento |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | **personal finance** | 34.00 | N/A | 2026-10-19 15:30:53 |
-| 2 | **sustainable gardening** | 26.24 | N/A | 2026-10-19 15:30:53 |
-| 3 | **low-code automation** | 25.68 | N/A | 2026-10-19 15:30:53 |
-| 4 | **remote work tools** | 25.00 | N/A | 2026-10-19 15:30:53 |
-| 5 | **mental health for developers** | 25.00 | N/A | 2026-10-19 15:30:53 |
+| 1 | **personal finance** | 34.00 | N/A | 2026-10-26 15:06:46 |
+| 2 | **sustainable gardening** | 27.71 | N/A | 2026-10-26 15:06:46 |
+| 3 | **low-code automation** | 25.68 | N/A | 2026-10-26 15:06:46 |
+| 4 | **remote work tools** | 25.00 | N/A | 2026-10-26 15:06:46 |
+| 5 | **mental health for developers** | 25.00 | N/A | 2026-10-26 15:06:46 |
 
 ---
 *Nota: Lo score è calcolato combinando segnali da Google Trends, Reddit e Udemy.*
